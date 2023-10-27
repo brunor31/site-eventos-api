@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+
+    api:
+      build:
+        context: "./api"
+      container_name: eventos-api
+      volumes:
+        - ./api/src:/var/www/html
+        - ./api/config/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      ports:
+        - "8080:80"
+      working_dir: /var/www/html
+      entrypoint: ["bash", "-c", "chmod -R 777 storage && composer install && apache2-foreground"]
+ 
